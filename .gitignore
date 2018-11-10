@@ -5,5 +5,5 @@ venv
 .flaskenv
 
 # Cache
-__pycache__
-*.pyc
+# __pycache__
+# *.pyc
