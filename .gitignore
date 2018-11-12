@@ -7,3 +7,9 @@ venv
 # Cache
 __pycache__
 *.pyc
+
+#
+.vscode
+
+#
+app.db
