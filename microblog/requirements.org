@@ -1,5 +1,8 @@
+
 * Within venv virtual environment
+
 ** pip install
+
 **** python-dotenv
 **** flask
 **** flask-wtf
