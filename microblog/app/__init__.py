@@ -5,7 +5,8 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 
 import logging
-from logging.handlers import SMTPHandler
+from logging.handlers import SMTPHandler, RotatingFileHandler
+import os
 
 myapp = Flask(__name__)
 
@@ -47,7 +48,19 @@ if not myapp.debug:
         
 #################
 # Logging to File
+if not myapp.debug:
+    if not os.path.exists('logs'):
+        os.mkdir('logs')
+    file_handler = RotatingFileHandler('logs/microblog.log', maxBytes=10240,
+                                       backupCount=10)
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+    file_handler.setLevel(logging.INFO)
+    myapp.logger.addHandler(file_handler)
 
+    myapp.logger.setLevel(logging.INFO)
+    myapp.logger.info('Microblog startup')
+    
 
 #
 from app import routes, models, errors # forms.py is imported from within models.py 

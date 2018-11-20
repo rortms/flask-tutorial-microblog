@@ -3,8 +3,6 @@ venv
 
 # Flask config
 .flaskenv
-A.py
-B.py
 
 # Cache
 __pycache__
@@ -15,3 +13,7 @@ __pycache__
 
 #
 app.db
+
+# Miscellaneous
+A.py
+B.py
