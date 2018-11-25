@@ -8,6 +8,13 @@ from app import login
 
 from hashlib import md5
 
+
+# Association table
+followers = db.Table('followers',
+                     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+                     db.Column('followed_id', db.Integer, db.ForeignKey('user.id')),
+)
+
 # User Data
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,7 +40,40 @@ class User(UserMixin, db.Model):
     # data representation
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
     
+    #####################
+    # Adding followers functionality
+    
+    # Many-to-many followers relationship
+    followed = db.relationship(
+        'User', secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+    
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+
+    def is_following(self, user):
+        return self.followed.filter(
+            followers.c.followed_id == user.id).count() > 0
+
+    def followed_posts(self):
+        followed = Post.query.join(
+            followers, (followers.c.followed_id == Post.user_id)).filter(
+                followers.c.follower_id == self.id)
+        
+        own = Post.query.filter_by(user_id=self.id)
+        
+        return followed.union(own).order_by(Post.timestamp.desc())
+
+        
 # Post Data
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -43,7 +83,8 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
-    
+
+
 ####
 # flask_login's UserMixin class expects the following loader function since 
 # it is database agnostic. We must interact with whichever database system was
