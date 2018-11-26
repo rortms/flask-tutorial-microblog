@@ -8,12 +8,14 @@ venv
 __pycache__
 *.pyc
 
-#
-.vscode
 
-#
+# The Database
 app.db
+
+# Logs
+logs
 
 # Miscellaneous
 A.py
 B.py
+.vscode
