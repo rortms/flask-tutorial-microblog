@@ -1,10 +1,12 @@
 from datetime import datetime
+from time import time
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
-from app import db
-from app import login
+import jwt
+
+from app import myapp, db,login
 
 from hashlib import md5
 
@@ -25,19 +27,33 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # password logic
+    # Password logic
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
     def check_password_hash(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode(
+            {'reset_password' : self.id, 'exp' : time() + expires_in},
+            myapp.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+    
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, myapp.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        except:
+            return
+        return  User.query.get(id)
+    
     # Avatar generator
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
 
-    # data representation
+    # Data representation
     def __repr__(self):
         return '<User {}>'.format(self.username)
 

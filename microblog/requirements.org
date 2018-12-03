@@ -3,9 +3,11 @@
 
 ** pip install
 
-**** python-dotenv
+**** python-dotenv (environment variable config)
 **** flask
-**** flask-wtf
+**** flask-wtf 
 **** flask-sqlalchemy
 **** flask-migrate
 **** flask-login
+**** flask-mail
+**** pyjwt (authentication tokens)

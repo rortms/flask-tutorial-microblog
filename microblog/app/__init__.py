@@ -3,6 +3,7 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_mail import Mail
 
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
@@ -26,6 +27,9 @@ migrate = Migrate(myapp, db)
 login = LoginManager(myapp)
 login.login_view = 'login' # The 'login' value here is the function (or endpoint) name for the login view
 
+#################
+# Email setup
+mail = Mail(myapp)
 
 #################
 # Email bug reporting
