@@ -3,8 +3,9 @@ from flask import render_template, flash, redirect, url_for
 from flask_login import current_user, login_user
 from flask_login import logout_user, login_required
 
-from app import myapp
-from app import db
+from app import myapp  # import is from app folder see __init__ file
+from app import db     #
+
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm
 from app.models import User, Post
 
