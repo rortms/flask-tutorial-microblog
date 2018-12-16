@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_bootstrap import Bootstrap
 
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
@@ -21,7 +22,6 @@ myapp.config.from_object(Config)
 db = SQLAlchemy(myapp)
 migrate = Migrate(myapp, db)
 
-
 #################
 # Login Manager
 login = LoginManager(myapp)
@@ -30,6 +30,10 @@ login.login_view = 'login' # The 'login' value here is the function (or endpoint
 #################
 # Email setup
 mail = Mail(myapp)
+
+#################
+# Front-end frame work
+bootstrap = Bootstrap(myapp)
 
 #################
 # Email bug reporting

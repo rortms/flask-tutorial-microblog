@@ -11,3 +11,4 @@
 **** flask-login
 **** flask-mail
 **** pyjwt (authentication tokens)
+**** flask-bootstrap
