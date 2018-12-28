@@ -6,10 +6,14 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
+from flask_babel import Babel
+from flask_babel import lazy_gettext as _l
 
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
+
+from flask import request # see language translation below
 
 myapp = Flask(__name__)
 
@@ -27,6 +31,7 @@ migrate = Migrate(myapp, db)
 # Login Manager
 login = LoginManager(myapp)
 login.login_view = 'login' # The 'login' value here is the function (or endpoint) name for the login view
+login.login_message = _l('Please log in to access this page.')
 
 #################
 # Email setup
@@ -41,6 +46,14 @@ bootstrap = Bootstrap(myapp)
 moment = Moment(myapp)
 
 #################
+# Translations
+babel = Babel(myapp)
+
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(myapp.config['LANGUAGES'])
+
+#####################
 # Email bug reporting
 if not myapp.debug:
     if myapp.config['MAIL_SERVER']:

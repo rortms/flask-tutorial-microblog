@@ -21,3 +21,6 @@ class Config(object):
 
     # Pagination
     POSTS_PER_PAGE = 3
+
+    # Supported Languagues
+    LANGUAGES = ['en', 'es']

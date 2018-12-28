@@ -13,3 +13,4 @@
 **** pyjwt (authentication tokens)
 **** flask-bootstrap
 **** flask-moment
+**** flask-babel
