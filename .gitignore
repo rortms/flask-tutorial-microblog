@@ -19,6 +19,4 @@ logs
 A.py
 B.py
 .vscode
-routes_mod.py
-routes.py_bak
-text_replace.py
+replace
