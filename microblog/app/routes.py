@@ -15,6 +15,8 @@ from werkzeug.urls import url_parse  # For redirection after hitting a login_req
 from flask_babel import _
 
 from datetime import datetime
+from flask import g
+from flask_babel import get_locale
 
 from app.forms import ResetPasswordRequestForm
 from app.email import send_password_reset_email
@@ -175,6 +177,7 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+    g.locale = str(get_locale())
         
 # Follow and unfollow routes
 @myapp.route('/follow/<username>')

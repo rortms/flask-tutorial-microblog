@@ -52,7 +52,8 @@ babel = Babel(myapp)
 @babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(myapp.config['LANGUAGES'])
-
+    # return 'es' # testing, force display spanish translation
+    
 #####################
 # Email bug reporting
 if not myapp.debug:

@@ -15,6 +15,9 @@ app.db
 # Logs
 logs
 
+# Babel
+messages.pot
+
 # Miscellaneous
 A.py
 B.py
