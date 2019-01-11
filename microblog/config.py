@@ -24,3 +24,5 @@ class Config(object):
 
     # Supported Languagues
     LANGUAGES = ['en', 'es']
+    # MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
+    YANDEX_TRANSLATOR_KEY = os.environ.get('YANDEX_TRANSLATOR_KEY')    
