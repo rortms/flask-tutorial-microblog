@@ -71,33 +71,3 @@ with open('./test_translated.po', 'w') as result:
 
         result.write(lines[i])
         
-
-        
-# ## Asynchronous calls to server
-# Note: Asynchronous logic based on https://stackoverflow.com/a/33777090
-# import concurrent.futures
-# def generateTranslations():
-#     with concurrent.futures.ThreadPoolExecutor() as executor:
-#         #
-#         for line_index in text2translate_map:
-#             text = text2translate_map[line_index]
-#             print("Getting translation for: ", text)
-#             future_to_index = { executor.submit(translate, text, 'en', 'es') : line_index + 1 }
-            
-        
-#         for future in concurrent.futures.as_completed(future_to_index, 60):
-#             translated_text_index = future_to_index[future]
-            
-#             try:
-#                 translated_text = future.result()
-#                 # lines[translated_text_index] = "msgstr " + '"' + translated_text + '"'
-#                 print(lines[translated_text_index-1])
-#                 print(translated_text)
-#                 print('------------')
-
-#             except Exception as exc:
-#                 print("line: {}, generated an exception; {}".format(translated_text_index, exc) )
-
-# generateTranslations()
-# translation_gen, future_to_index = getTranslationGenerator()
-
