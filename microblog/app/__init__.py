@@ -27,23 +27,28 @@ myapp.config.from_object(Config)
 db = SQLAlchemy(myapp)
 migrate = Migrate(myapp, db)
 
+
 #################
 # Login Manager
 login = LoginManager(myapp)
 login.login_view = 'login' # The 'login' value here is the function (or endpoint) name for the login view
 login.login_message = _l('Please log in to access this page.')
 
+
 #################
 # Email setup
 mail = Mail(myapp)
+
 
 #################
 # Front-end frame work
 bootstrap = Bootstrap(myapp)
 
+
 #################
 # Timezone managment
 moment = Moment(myapp)
+
 
 #################
 # Translations
@@ -53,6 +58,7 @@ babel = Babel(myapp)
 def get_locale():
     return request.accept_languages.best_match(myapp.config['LANGUAGES'])
     # return 'es' # testing, force display spanish translation
+
     
 #####################
 # Email bug reporting
@@ -88,6 +94,13 @@ if not myapp.debug:
     myapp.logger.setLevel(logging.INFO)
     myapp.logger.info('Microblog startup')
     
+    
+###############################
+# Registration Errors Blueprint
+from app.errors import bp as errors_bp
+myapp.register_blueprint(errors_bp)
+
+
 
 #
-from app import routes, models, errors # forms.py is imported from within models.py 
+from app import routes, models  # forms.py is imported from within models.py
