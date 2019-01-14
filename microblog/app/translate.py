@@ -36,3 +36,4 @@ def translate(text, source_language, dest_language):
     return json.loads(r.content)['text'][0]
 
 # translate("Hey man, how's everything?", 'en', 'es')
+
