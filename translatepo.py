@@ -10,6 +10,7 @@ import re
 
 fpath = "./microblog/app/translations/es/LC_MESSAGES/messages.po"
 
+
 with open("yandex_key") as keyf:
     YANDEX_TRANSLATOR_KEY = keyf.readlines()[0]
 
@@ -24,6 +25,7 @@ def extractText(line):
     text_index = line.find('"')
     return line[text_index:].strip()
 
+
 ## Translationg GET request
 def translate(text, source_language, dest_language):
     
@@ -35,6 +37,7 @@ def translate(text, source_language, dest_language):
                          source_language,
                          dest_language))
     return json.loads(r.content)['text'][0]
+
 
 ##
 def pyfmtTranslate(l, from_lang, to_lang):
@@ -86,6 +89,7 @@ for i, l in enumerate(lines):
 
         
 ##############################
+
 ## Get translations and write to file
 with open('./test_translated.po', 'w') as result:
     
@@ -126,3 +130,4 @@ with open('./test_translated.po', 'w') as result:
 #     if text2translate_map.get(i):
 #         text2translate = text2translate_map[i]
 #         print(lines[i+1].replace('""', '"' + tr + '"' ))
+

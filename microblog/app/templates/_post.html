@@ -10,6 +10,7 @@
             <!-- https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiii-i18n-and-l10n -->
             {% set user_link %}
             	<a href="{{ url_for('main.user', username=post.author.username) }}">
+
             	    {{ post.author.username }}
             	</a>
             {% endset %}

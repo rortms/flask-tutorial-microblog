@@ -56,11 +56,11 @@ def create_app(config_class=Config):
     # Timezone managment
     moment.init_app(app)
 
-
     #################
     # Translations
     babel.init_app(app)
 
+    
 
     ########################
     # Blueprint Registration
